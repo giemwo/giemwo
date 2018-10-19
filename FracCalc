@@ -1,0 +1,152 @@
+public static void main(String[] args) {
+  Scanner userInput = new Scanner(System.in);
+  String x = userInput.nextLine();
+  int z = bound(x);
+  int r = oneSide(x, z);
+  int ra = onesideCalc(x, z, r);
+  int u = otherSide(x, z);
+  int ub = othersideCalc(x, z, u);
+  int b = oneSide(x, z);
+  int d = otherSide(x, z);
+  System.out.print(produceAnswer(x));
+  // main is incomplete
+  System.out.print(z);
+ }
+ public static String produceAnswer (String input) { 
+  String s = input;
+  int z = bound(s);
+  int r = oneSide(s, z);
+  int ra = onesideCalc(s, z, r);
+  int u = otherSide(s, z);
+  int ub = othersideCalc(s, z, u);
+  int b = oneSide(s, z);
+  int d = otherSide(s, z);
+                
+         
+               int q = s.length();
+               if (s.indexOf('+') != -1 || s.indexOf('+') <= q) {
+                 
+                  int a = ra + ub; // calling the method
+                           return "a";
+               }else if (s.indexOf('-') != -1 || s.indexOf('-') <= q) {
+                
+                           int a = ra - ub;
+                           return "a";
+               }else if (s.indexOf('*') != -1 || s.indexOf('*') <= q) {
+                 
+                           int a = ra * ub;
+                           return "a";
+               }else if (s.indexOf('/') != -1 || s.indexOf('/') <= q) {
+                  
+                           int a = ra / ub;
+                           return "a";
+               } 
+               return "doesn't work";
+    }
+ public static int bound(String input) { // checked
+  String s = input;
+  int x = s.length();
+  if (s.indexOf(" + ") != -1 || s.indexOf(" + ") <= x && s.indexOf(" + ") != -1) { // so im put a space here
+                       // because what if the
+                       // equation has the signs in
+                       // it
+   int z = s.indexOf(" + "); // for ex 9_1/2
+   return z;
+  } else if (s.indexOf(" - ") != -1 || s.indexOf(" - ") <= x && s.indexOf(" - ") != -1) {
+   int z = s.indexOf(" - ");
+   return z;
+  } else if (s.indexOf(" * ") != -1 || s.indexOf(" * ") <= x && s.indexOf(" * ") != -1) {
+   int z = s.indexOf(" * ");
+   return z;
+  } else if (s.indexOf(" / ") != -1 || s.indexOf(" / ") <= x && s.indexOf(" / ") != -1) {
+   int z = s.indexOf(" / ");
+   return z;
+  }
+  return x;
+ }
+ public static int oneSide(String output, int bound) {// bound1 inside of the first term
+  String s = output; // the problem here is that what if there was more than one / or _ 
+         // ALSO if its 1_1/2 it only shows the _
+  int x = s.length();
+  if (s.indexOf('/') != -1 && s.indexOf('/') < bound) {
+   int b = s.indexOf('/');
+   return b;
+  }else if (s.indexOf('_') != -1 && s.indexOf('_') < bound) { // 
+   int b = s.indexOf('_');
+   return b;
+  
+  }
+  
+  return 12;
+ }
+ public static int otherSide(String output, int bound) {
+  String s = output;
+  int x = s.length();
+  if (s.indexOf('/') != -1 && s.indexOf('/') > bound + 3) {
+   // make sure these ones don’t have the spaces
+   int d = s.indexOf('/');
+   return d;
+  }
+  if (s.indexOf('_') != -1 && s.indexOf('_') > bound + 3) {
+   int d = s.indexOf('_');
+   return d;
+  }
+  return 22;
+ }
+ public static int onesideCalc(String output, int bound, int bound1) { // explain this for me
+  String s = output;
+  if (s.indexOf('_') != -1 || s.indexOf('_') < bound) {
+   String c = s.substring(0, bound1);
+   int f = Integer.parseInt(c);
+   if (s.indexOf('/') != -1 || s.indexOf('/') > bound1 && s.indexOf('/') < bound) {
+    int l = s.indexOf('/');
+    String m = s.substring(bound1, l);
+    String w = s.substring(l, bound);
+    int n = Integer.parseInt(m);
+    int o = Integer.parseInt(w);
+    int p = n / o;
+    return f + p;
+   } else {
+    return f;
+   }
+  } else if (s.indexOf('/') != -1 || s.indexOf('/') < bound) {
+   String c = s.substring(0, bound1);
+   String g = s.substring(bound1, bound);
+   int f = Integer.parseInt(c);
+   int h = Integer.parseInt(g);
+   return f / h;
+  }
+  return 1;
+ }
+ public static int othersideCalc(String output, int bound, int bound2) {
+  String s = output;
+  if (s.indexOf('_') != -1 || s.indexOf('_') > bound) {
+   String c = s.substring(bound, bound2);
+   int f = Integer.parseInt(c);
+   if (s.indexOf('/') != -1 || s.indexOf('/') > bound2) {
+    int l = s.indexOf('/');
+    String m = s.substring(bound2, l);
+    String w = s.substring(l);
+    int n = Integer.parseInt(m);
+    int o = Integer.parseInt(w);
+    int p = n / o;
+    return f + p;
+   } else {
+    return f;
+   }
+  } else if (s.indexOf('/') != -1 || s.indexOf('/') > bound) {
+   String c = s.substring(bound, bound2);
+   String g = s.substring(bound2);
+   int f = Integer.parseInt(c);
+   int h = Integer.parseInt(g);
+   return f / h;
+  }
+   return 2;
+   }
+ // Break by two terms
+  // Break term into whole number and fraction if needed.
+  // If fraction and whole number, break up fraction
+  // Turn mixed number fraction into int
+  // Evaluate
+  // Add to whole number
+  // If whichever func, evaluate for two terms.
